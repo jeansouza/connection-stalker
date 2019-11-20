@@ -2,9 +2,9 @@
   <img src="https://raw.githubusercontent.com/jeansouza/connection-stalker/master/the-vicious-eye.png" alt="Wow" width="130"/>
 </p>
 
-<p align="center">
+<center>
   <h2>Connection Stalker</h2>
-</p>
+</center>
 
 [![License Badge](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/rostegg/email-spoofing-server/blob/master/LICENSE)
 [![Download](https://img.shields.io/static/v1.svg?label=Shell:&message=3.26-3.32&color=orange)](https://extensions.gnome.org/extension/1677/connection-stalker/)
