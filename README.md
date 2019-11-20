@@ -1,4 +1,6 @@
-[<img src="https://raw.githubusercontent.com/jeansouza/connection-stalker/master/the-vicious-eye.png" alt="Wow" width="64"/>]
+<p align="center">
+  <img src="https://raw.githubusercontent.com/jeansouza/connection-stalker/master/the-vicious-eye.png" alt="Wow" width="64"/>
+</p>
 
 # Connection Stalker
 
