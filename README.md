@@ -3,7 +3,7 @@
 </p>
 
 <p align="center">
-  # Connection Stalker
+  <h2>Connection Stalker</h2>
 </p>
 
 [![License Badge](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/rostegg/email-spoofing-server/blob/master/LICENSE)
