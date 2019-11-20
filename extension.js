@@ -165,7 +165,7 @@ class IpInfoIndicator extends PanelMenu.Button {
 
     _icon = new St.Icon({
       gicon: null,
-      style_class: 'system-status-icon'
+      style_class: 'custom-icon-style'
     });
 
     _label = new St.Label({

@@ -1,4 +1,9 @@
 .ip-data-panel {
-    height: 100%;
-    overflow: hidden;
+  height: 100%;
+  overflow: hidden;
+}
+
+.custom-icon-style {
+  width: 23px;
+  padding: 4.5px 4.5px 4.5px 0px;
 }

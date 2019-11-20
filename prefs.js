@@ -11,7 +11,7 @@ const DISPLAY_MODES = ['only-flag', 'only-ip', 'ip-and-flag'];
 
 const init = () => {/* Empty */};
 
-class PublicIpPrefs extends Gtk.Grid {
+class ConnectionStalkerPrefs extends Gtk.Grid {
 	
 	constructor() {
 		super();
@@ -68,7 +68,7 @@ class PublicIpPrefs extends Gtk.Grid {
 }
 
 const buildPrefsWidget = () => {
-	let widget = new PublicIpPrefs();
+	let widget = new ConnectionStalkerPrefs();
 	widget.show_all();
 	return widget;
 }

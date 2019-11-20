@@ -1,8 +1,8 @@
-<schemalist gettext-domain="public-ip-extension">
-  <schema path="/org/gnome/shell/extensions/public-ip-extension/" id="org.gnome.shell.extensions.public-ip-extension">
+<schemalist gettext-domain="connection-stalker">
+  <schema path="/org/gnome/shell/extensions/connection-stalker/" id="org.gnome.shell.extensions.connection-stalker">
     <key type="i" name="refresh-rate">
-      <default>15</default>
-      <summary>How often to refresh?(in seconds)</summary>
+      <default>5</default>
+      <summary>How often to refresh? (in seconds)</summary>
     </key>
     <key type="s" name="display-mode">
       <default>"ip-and-flag"</default>
@@ -12,5 +12,5 @@
       <default>"ip-api.com"</default>
       <summary>API service</summary>
     </key>
-</schema>
+  </schema>
 </schemalist>
