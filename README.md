@@ -1,3 +1,5 @@
+[<img src="" alt="Wow" width="64"/>]
+
 # Connection Stalker
 
 [![License Badge](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/rostegg/email-spoofing-server/blob/master/LICENSE)
