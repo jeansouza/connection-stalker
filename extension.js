@@ -41,7 +41,7 @@ const servicesRequestProcessors = {
         let simplifiedResponseData = { ip: responseData.query, countryCode: responseData.countryCode };
         callback(null, simplifiedResponseData);
       };
-  
+
       httpSession.queue_message(request, _processRequest);
     }
   },
@@ -65,7 +65,7 @@ const servicesRequestProcessors = {
         let simplifiedResponseData = { ip: responseData.ip, countryCode: responseData.country };
         callback(null, simplifiedResponseData);
       };
-  
+
       httpSession.queue_message(request, _processRequest);
     }
   },
@@ -85,7 +85,7 @@ const servicesRequestProcessors = {
         let simplifiedResponseData = { ip: responseData.ip, countryCode: responseData.cc };
         callback(null, simplifiedResponseData);
       };
-  
+
       httpSession.queue_message(request, _processRequest);
     }
   },
@@ -105,7 +105,7 @@ const servicesRequestProcessors = {
         let simplifiedResponseData = { ip: responseData.ip, countryCode: responseData.country_code };
         callback(null, simplifiedResponseData);
       };
-  
+
       httpSession.queue_message(request, _processRequest);
     }
   },
@@ -125,19 +125,21 @@ const servicesRequestProcessors = {
 }
 
 const displayModeProcessors = {
-  'ip-and-flag' : (err, responseData) => {
+  'ip-and-flag': (err, responseData) => {
     _label.text = !responseData ? CONNECTION_REFUSED : responseData.ip;
 
-    _icon.gicon = !responseData ? Gio.icon_new_for_string(`${Me.path}/icons/flags/error.png`) : 
-                                    selectIcon(responseData);
+    _icon.gicon = !responseData ?
+      Gio.icon_new_for_string(`${Me.path}/icons/flags/error.png`) :
+      selectIcon(responseData);
   },
-  'only-flag' : (err, responseData) => {
+  'only-flag': (err, responseData) => {
     _label.text = '';
 
-    _icon.gicon = !responseData ? Gio.icon_new_for_string(`${Me.path}/icons/flags/error.png`) : 
-                                    selectIcon(responseData);
+    _icon.gicon = !responseData ?
+      Gio.icon_new_for_string(`${Me.path}/icons/flags/error.png`) :
+      selectIcon(responseData);
   },
-  'only-ip' : (err, responseData) => {
+  'only-ip': (err, responseData) => {
     _label.text = !responseData ? CONNECTION_REFUSED : responseData.ip;
 
     _icon.gicon = null;
@@ -147,12 +149,12 @@ const displayModeProcessors = {
 const selectIcon = (responseData) => {
   const currentService = Settings.get_string('api-service')
   return currentService === 'local-ip' ?
-         Gio.icon_new_for_string(`${Me.path}/icons/flags/local-ip-icon.png`) :
-         Gio.icon_new_for_string(`${Me.path}/icons/flags/${responseData.countryCode}.png`);
-}  
+    Gio.icon_new_for_string(`${Me.path}/icons/flags/local-ip-icon.png`) :
+    Gio.icon_new_for_string(`${Me.path}/icons/flags/${responseData.countryCode}.png`);
+}
 
 const _makeRequest = () => {
-  const currentService = Settings.get_string('api-service'), 
+  const currentService = Settings.get_string('api-service'),
     currentMode = Settings.get_string('display-mode');
   const service = servicesRequestProcessors[currentService];
   const requestCallback = displayModeProcessors[currentMode];
@@ -162,7 +164,7 @@ const _makeRequest = () => {
 class IpInfoIndicator extends PanelMenu.Button {
   constructor() {
     super(0.0, "Ip Info Indicator", false);
-    let hbox = new St.BoxLayout({style_class: 'ip-data-panel'});
+    let hbox = new St.BoxLayout({ style_class: 'ip-data-panel' });
 
     _icon = new St.Icon({
       gicon: null,
@@ -231,7 +233,7 @@ class IpInfoIndicator extends PanelMenu.Button {
 
 let _indicator;
 
-const init = () => {/* Empty */};
+const init = () => { /* Empty */ };
 
 const enable = () => _indicator = new IpInfoIndicator;
 
