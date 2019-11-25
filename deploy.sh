@@ -1,1 +1,1 @@
-zip -r connection_stalker_extension.zip . -x .\* -x "deploy.sh" -x "LICENSE"
+glib-compile-schemas ./schemas && zip -r connection_stalker_extension.zip . -x .\* -x "deploy.sh" -x "LICENSE" -x "the-vicious-eye.png"
