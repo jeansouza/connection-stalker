@@ -15,6 +15,7 @@ const NO_CONNECTION = 'Waiting for connection';
 const CANT_GET_LOCAL_IP = `Can't get local ip`;
 const MENU_POSITION = 'right';
 const CONNECTION_REFUSED = 'Connection refused';
+const STATUS_AREA_ID = 'connection-stalker-status-area';
 
 let _label, _icon;
 
@@ -145,8 +146,9 @@ const displayModeProcessors = {
 
 const selectIcon = (responseData) => {
   const currentService = Settings.get_string('api-service')
-  return currentService === 'local-ip' ? Gio.icon_new_for_string(`${Me.path}/icons/flags/local-ip-icon.png`) :
-                                          Gio.icon_new_for_string(`${Me.path}/icons/flags/${responseData.countryCode}.png`);
+  return currentService === 'local-ip' ?
+         Gio.icon_new_for_string(`${Me.path}/icons/flags/local-ip-icon.png`) :
+         Gio.icon_new_for_string(`${Me.path}/icons/flags/${responseData.countryCode}.png`);
 }  
 
 const _makeRequest = () => {
@@ -158,7 +160,6 @@ const _makeRequest = () => {
 };
 
 class IpInfoIndicator extends PanelMenu.Button {
-
   constructor() {
     super(0.0, "Ip Info Indicator", false);
     let hbox = new St.BoxLayout({style_class: 'ip-data-panel'});
@@ -172,40 +173,40 @@ class IpInfoIndicator extends PanelMenu.Button {
       text: Settings.get_boolean('display-mode') ? '' : NO_CONNECTION,
       y_align: Clutter.ActorAlign.CENTER
     });
-    
+
     hbox.add_child(_icon);
     hbox.add_child(_label);
 
     this.actor.add_actor(hbox);
 
-    Main.panel.addToStatusArea('ip-info-indicator', this, 1, MENU_POSITION);
-  
+    Main.panel.addToStatusArea(STATUS_AREA_ID, this, 1, MENU_POSITION);
+
     this.destroy = () => {
       this.removeTimer();
       super.destroy();
     }
-  
+
     this.update = () => {
       _makeRequest();
       return true;
     }
-  
+
     this.removeTimer = () => {
       if (this.timer) {
         Mainloop.source_remove(this.timer);
         this.timer = null;
       }
     }
-  
+
     this.updateRefreshRate = () => {
       this.refreshRate = Settings.get_int('refresh-rate');
       this.removeTimer();
       this.timer = Mainloop.timeout_add_seconds(this.refreshRate, this.update.bind(this));
     }
-  
+
     this.updateDisplayMode = () => {
-      Main.panel.statusArea['ip-info-indicator'] = null;
-      Main.panel.addToStatusArea('ip-info-indicator', this, 1, MENU_POSITION);
+      Main.panel.statusArea[STATUS_AREA_ID] = null;
+      Main.panel.addToStatusArea(STATUS_AREA_ID, this, 1, MENU_POSITION);
       this.update();
     }
 
@@ -222,12 +223,10 @@ class IpInfoIndicator extends PanelMenu.Button {
     Settings.connect('changed::api-service', this.updateService.bind(this));
 
     this.actor.connect('button-press-event', this.onClick.bind(this));
-    
+
     this.update();
     this.updateRefreshRate();
   }
-
-  
 };
 
 let _indicator;
