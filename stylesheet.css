@@ -1,9 +1,15 @@
 .ip-data-panel {
   height: 100%;
   overflow: hidden;
+  padding-bottom: 2px;
 }
 
 .custom-icon-style {
-  width: 23px;
-  padding: 4.5px 4.5px 4.5px 0px;
+  width: 20px;
+  padding: 6px 4px 5px 0px;
+}
+
+.ip-info-box {
+  padding-left: 0px;
+  color: white;
 }
