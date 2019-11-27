@@ -6,7 +6,7 @@
   <h2>Connection Stalker</h2>
 </center>
 
-[![License Badge](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/rostegg/email-spoofing-server/blob/master/LICENSE)
+[![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://github.com/jeansouza/connection-stalker/blob/master/LICENSE)
 [![Download](https://img.shields.io/static/v1.svg?label=Shell:&message=3.26-3.32&color=orange)](https://extensions.gnome.org/extension/1677/connection-stalker/)
 
 [<img src="https://github.com/JasonLG1979/gnome-shell-extensions-mediaplayer/blob/master/data/get-it-on-ego.svg?sanitize=true" height="100">](https://extensions.gnome.org/extension/2362/connection-stalker/)
