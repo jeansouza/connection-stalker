@@ -22,19 +22,19 @@ const CONNECTION_REFUSED = 'Connection refused'
 const STATUS_AREA_ID = 'connection-stalker-status-area'
 
 const DEFAULT_DATA = {
-  IP: 'No Connection',
-  Hostname: '',
-  City: '',
-  Region: '',
-  Country: '',
-  Loc: '',
-  Org: '',
-  Postal: '',
-  Timezone: ''
+  ip: 'no connection',
+  hostname: '',
+  city: '',
+  region: '',
+  country: '',
+  loc: '',
+  org: '',
+  postal: '',
+  timezone: ''
 }
 
 let _label, _icon
-let _buttons = {}
+let _ipInfoRows = {}
 let _ipInfoBox
 
 const makeHttpSession = () => {
@@ -58,13 +58,13 @@ const servicesRequestProcessors = {
         let responseData = JSON.parse(responseJSON)
         let simplifiedResponseData = { ip: responseData.ip, countryCode: responseData.country }
 
+        clearIpInfoRows()
+
         Object.keys(responseData).map(function(key) {
           try {
-          _buttons['_' + key].child.text = responseData[key.toLowerCase()]
-          }catch(e){}
+            setIpInfoRow(key, responseData[key])
+          } catch(e) {}
         })
-
-        _buttons['_' + 'country'].child.text = JSON.stringify(responseData)
 
         callback(null, simplifiedResponseData)
       }
@@ -86,7 +86,13 @@ const servicesRequestProcessors = {
         let responseJSON = request.response_body.data
         let responseData = JSON.parse(responseJSON)
         let simplifiedResponseData = { ip: responseData.query, countryCode: responseData.countryCode }
-        _buttons['_' + 'country'].child.text = JSON.stringify(responseData)
+        clearIpInfoRows()
+
+        Object.keys(responseData).map(function(key) {
+          try {
+            setIpInfoRow(key, responseData[key])
+          } catch(e) {}
+        })
         callback(null, simplifiedResponseData)
       }
 
@@ -111,7 +117,13 @@ const servicesRequestProcessors = {
           return
         }
         let simplifiedResponseData = { ip: responseData.ip, countryCode: responseData.country }
-        _buttons['_' + 'country'].child.text = JSON.stringify(responseData)
+        clearIpInfoRows()
+
+        Object.keys(responseData).map(function(key) {
+          try {
+            setIpInfoRow(key, responseData[key])
+          } catch(e) {}
+        })
         callback(null, simplifiedResponseData)
       }
 
@@ -132,7 +144,13 @@ const servicesRequestProcessors = {
         let responseJSON = request.response_body.data
         let responseData = JSON.parse(responseJSON)
         let simplifiedResponseData = { ip: responseData.ip, countryCode: responseData.cc }
-        _buttons['_' + 'country'].child.text = JSON.stringify(responseData)
+        clearIpInfoRows()
+
+        Object.keys(responseData).map(function(key) {
+          try {
+            setIpInfoRow(key, responseData[key])
+          } catch(e) {}
+        })
         callback(null, simplifiedResponseData)
       }
 
@@ -153,7 +171,13 @@ const servicesRequestProcessors = {
         let responseJSON = request.response_body.data
         let responseData = JSON.parse(responseJSON)
         let simplifiedResponseData = { ip: responseData.ip, countryCode: responseData.country_code }
-        _buttons['_' + 'country'].child.text = JSON.stringify(responseData)
+        clearIpInfoRows()
+
+        Object.keys(responseData).map(function(key) {
+          try {
+            setIpInfoRow(key, responseData[key])
+          } catch(e) {}
+        })
         callback(null, simplifiedResponseData)
       }
 
@@ -170,7 +194,13 @@ const servicesRequestProcessors = {
       )
       let matches = commandOutputString.match(/src [^ ]+/g)
       const lanIpAddress = matches ? matches[0].split(' ')[1] : CANT_GET_LOCAL_IP
-      _buttons['_' + 'country'].child.text = JSON.stringify(lanIpAddress)
+      clearIpInfoRows()
+
+        Object.keys(responseData).map(function(key) {
+          try {
+            setIpInfoRow(key, responseData[key])
+          } catch(e) {}
+        })
       callback(null, { ip: lanIpAddress })
     }
   }
@@ -252,17 +282,7 @@ class IpInfoIndicator extends PanelMenu.Button {
     this.menu.addMenuItem(ipInfo)
 
     Object.keys(DEFAULT_DATA).map((key) => {
-      let ipInfoRow = new St.BoxLayout()
-      _ipInfoBox.add_actor(ipInfoRow)
-      ipInfoRow.add_actor(new St.Label({style_class: 'ip-info-key', text: key + ': '}))
-
-      let dataLabelBtn = new St.Button({child: new St.Label({style_class: 'ip-info-value', text: DEFAULT_DATA[key]})})
-      dataLabelBtn.connect('button-press-event', function() {
-        
-        Clipboard.set_text(CLIPBOARD_TYPE, dataLabelBtn.child.text)
-      })
-      ipInfoRow.add_actor(dataLabelBtn)
-      _buttons['_' + key.toLowerCase()] = dataLabelBtn
+      setIpInfoRow(key, DEFAULT_DATA[key])
     })
 
     let _appSys = Shell.AppSystem.get_default()
@@ -334,13 +354,51 @@ class IpInfoIndicator extends PanelMenu.Button {
   }
 }
 
-const setIpInfoRow = () => {
-  ipInfoBox.remove_child
+const removeItemFromIpInfoRows = (key) => {
+  if (_ipInfoRows.hasOwnProperty(key)) {
+    _ipInfoBox.remove_child(_ipInfoRows[key])
+
+    delete _ipInfoRows[key]
+  }
+}
+
+const clearIpInfoRows = () => {
+  for (const key in _ipInfoRows) {
+    removeItemFromIpInfoRows(key)
+  }
+}
+
+const setIpInfoRow = (key, value) => {
+  removeItemFromIpInfoRows(key)
+
+  const ipInfoRow = new St.BoxLayout()
+
+  ipInfoRow.add_actor(new St.Label({
+    style_class: 'ip-info-key',
+    text: key + ': '
+  }))
+
+  const dataLabelBtn = new St.Button({
+    child: new St.Label({
+      style_class: 'ip-info-value',
+      text: value
+    })
+  })
+
+  dataLabelBtn.connect('button-press-event', function() {
+    Clipboard.set_text(CLIPBOARD_TYPE, dataLabelBtn.child.text)
+  })
+
+  ipInfoRow.add_actor(dataLabelBtn)
+
+  _ipInfoRows[key] = ipInfoRow
+
+  _ipInfoBox.add_actor(ipInfoRow)
 }
 
 let _indicator
 
-const init = () => { /* Empty */ }
+const init = () => {}
 
 const enable = () => _indicator = new IpInfoIndicator
 
