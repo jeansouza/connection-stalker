@@ -22,19 +22,20 @@ const CONNECTION_REFUSED = 'Connection refused'
 const STATUS_AREA_ID = 'connection-stalker-status-area'
 
 const DEFAULT_DATA = {
-  ip: "No Connection",
-  hostname: '',
-  city: '',
-  region: '',
-  country: '',
-  loc: '',
-  org: '',
-  postal: '',
-  timezone: ''
+  IP: 'No Connection',
+  Hostname: '',
+  City: '',
+  Region: '',
+  Country: '',
+  Loc: '',
+  Org: '',
+  Postal: '',
+  Timezone: ''
 }
 
 let _label, _icon
 let _buttons = {}
+let _ipInfoBox
 
 const makeHttpSession = () => {
   let httpSession = new Soup.SessionAsync()
@@ -59,10 +60,11 @@ const servicesRequestProcessors = {
 
         Object.keys(responseData).map(function(key) {
           try {
-          _buttons['_' + key].child.text = responseData[key]
+          _buttons['_' + key].child.text = responseData[key.toLowerCase()]
           }catch(e){}
         })
 
+        _buttons['_' + 'country'].child.text = JSON.stringify(responseData)
 
         callback(null, simplifiedResponseData)
       }
@@ -175,6 +177,13 @@ const servicesRequestProcessors = {
 }
 
 const displayModeProcessors = {
+  'ip-flag-and-country': (err, responseData) => {
+    _label.text = !responseData ? CONNECTION_REFUSED : `${responseData.countryCode} | ${responseData.ip}`
+
+    _icon.gicon = !responseData ?
+      Gio.icon_new_for_string(`${Me.path}/icons/flags/error.png`) :
+      selectIcon(responseData)
+  },
   'ip-and-flag': (err, responseData) => {
     _label.text = !responseData ? CONNECTION_REFUSED : responseData.ip
 
@@ -237,14 +246,14 @@ class IpInfoIndicator extends PanelMenu.Button {
     //
 
     //ipinfo
-    let ipInfoBox = new St.BoxLayout({style_class: 'ip-info-box', vertical: true})
-    parentContainer.add_actor(ipInfoBox)
+    _ipInfoBox = new St.BoxLayout({style_class: 'ip-info-box', vertical: true})
+    parentContainer.add_actor(_ipInfoBox)
     ipInfo.actor.add(parentContainer)
     this.menu.addMenuItem(ipInfo)
 
     Object.keys(DEFAULT_DATA).map((key) => {
       let ipInfoRow = new St.BoxLayout()
-      ipInfoBox.add_actor(ipInfoRow)
+      _ipInfoBox.add_actor(ipInfoRow)
       ipInfoRow.add_actor(new St.Label({style_class: 'ip-info-key', text: key + ': '}))
 
       let dataLabelBtn = new St.Button({child: new St.Label({style_class: 'ip-info-value', text: DEFAULT_DATA[key]})})
@@ -253,7 +262,7 @@ class IpInfoIndicator extends PanelMenu.Button {
         Clipboard.set_text(CLIPBOARD_TYPE, dataLabelBtn.child.text)
       })
       ipInfoRow.add_actor(dataLabelBtn)
-      _buttons['_' + key] = dataLabelBtn
+      _buttons['_' + key.toLowerCase()] = dataLabelBtn
     })
 
     let _appSys = Shell.AppSystem.get_default()
@@ -323,6 +332,10 @@ class IpInfoIndicator extends PanelMenu.Button {
     this.update()
     this.updateRefreshRate()
   }
+}
+
+const setIpInfoRow = () => {
+  ipInfoBox.remove_child
 }
 
 let _indicator

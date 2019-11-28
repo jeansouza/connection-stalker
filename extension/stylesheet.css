@@ -6,10 +6,17 @@
 
 .custom-icon-style {
   width: 20px;
-  padding: 6px 4px 5px 0px;
+  padding: 6px 6px 5px 0px;
 }
 
 .ip-info-box {
   padding-left: 0px;
-  color: white;
+}
+
+.ip-info-value {
+  color: rgb(255, 255, 255);
+}
+
+.ip-info-key {
+  color: rgb(177, 180, 178);
 }

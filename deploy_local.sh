@@ -1,1 +1,0 @@
-rm -rf $HOME/.local/share/gnome-shell/extensions/connection-stalker@jeansouza.github.com && cp -r ../connection-stalker $HOME/.local/share/gnome-shell/extensions/connection-stalker@jeansouza.github.com
