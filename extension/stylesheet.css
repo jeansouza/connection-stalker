@@ -20,3 +20,7 @@
 .ip-info-key {
   color: rgb(177, 180, 178);
 }
+
+.system-status-icon {
+  padding-top: 2px;
+}

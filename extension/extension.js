@@ -214,12 +214,14 @@ const displayModeProcessors = {
       Gio.icon_new_for_string(`${Me.path}/icons/flags/error.png`) :
       selectIcon(responseData)
   },
-  'ip-and-flag': (err, responseData) => {
+  'IP and flag': (err, responseData) => {
     _label.text = !responseData ? CONNECTION_REFUSED : responseData.ip
 
     _icon.gicon = !responseData ?
       Gio.icon_new_for_string(`${Me.path}/icons/flags/error.png`) :
       selectIcon(responseData)
+
+    _icon.style_class = !responseData ? 'system-status-icon' : _icon.style_class
   },
   'only-flag': (err, responseData) => {
     _label.text = ''

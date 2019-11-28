@@ -5,7 +5,7 @@
       <summary>How often to refresh? (in seconds)</summary>
     </key>
     <key type="s" name="display-mode">
-      <default>"ip-and-flag"</default>
+      <default>"IP and flag"</default>
       <summary>Display mode</summary>
     </key>
     <key type="s" name="api-service">
