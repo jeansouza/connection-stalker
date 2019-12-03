@@ -1,0 +1,31 @@
+.ip-data-panel {
+  height: 100%;
+  overflow: hidden;
+  padding-bottom: 2px;
+}
+
+.icon-style-custom {
+  width: 20px;
+  padding: 6px 6px 5px 0px;
+}
+
+.custom-icon-style-only-flag {
+  width: 20px;
+  padding: 6px 0px 5px 0px;
+}
+
+.ip-info-box {
+  padding-left: 0px;
+}
+
+.ip-info-value {
+  color: rgb(255, 255, 255);
+}
+
+.ip-info-key {
+  color: rgb(177, 180, 178);
+}
+
+.system-status-icon {
+  padding-top: 2px;
+}
