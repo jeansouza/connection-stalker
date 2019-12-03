@@ -1,1 +1,1 @@
-rm connection_stalker_extension.zip && cd ./extension && glib-compile-schemas ./schemas && zip -r ../connection_stalker_extension.zip *
+rm -rf connection_stalker_extension.zip && cd ./extension && glib-compile-schemas ./schemas && zip -r ../connection_stalker_extension.zip *
