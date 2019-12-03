@@ -9,7 +9,7 @@
 
 [<img src="https://github.com/JasonLG1979/gnome-shell-extensions-mediaplayer/blob/master/data/get-it-on-ego.svg?sanitize=true" height="100">](https://extensions.gnome.org/extension/2362/connection-stalker/)
 
-# How it look?
+<h3>How it look?</h3>
 
 * Normal mode 
 
@@ -23,7 +23,7 @@
 
 ![Example-Settings](../assets/settings.png)
 
-# How to install on Arch Linux
+<h3>How to install on Arch Linux</h3>
 
 If you are using Arch Linux feel free to use this AUR.
 
@@ -35,13 +35,14 @@ cd gnome-shell-extension-connection-stalker-git
 makepkg -sri
 ```
 
-# How to install?
+<h3>How to install?</h3>
 
 You can download extension from link above.
 
 If you want install it manually, clone project to ~/.local/share/gnome-shell/extensions/connection-stalker-extension@rostegg.github.com folder and restart gnome desktop (Alt + F2 -> r -> Enter)
 
-# Why 'Connection refused'?  
+<h3>Why 'Connection refused'?</h3>
+
 This may be for two reasons:
 * Lack of internet connection  
 * Lack of connection with the selected service (service is down, your ip was banned, etc). Now there are four services to choose from:  
@@ -52,5 +53,5 @@ This may be for two reasons:
 
 If you want to add own service, just create issue with link to api.
 
-# Bug report  
+<h3>Bug report</h3>
 For bug report provide gnome shell version (gnome-shell --version) and error message, if installation failed (Alt+F2 -> lg -> Extensions -> Show Errors).
