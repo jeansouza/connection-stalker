@@ -4,9 +4,14 @@
   padding-bottom: 2px;
 }
 
-.custom-icon-style {
+.icon-style-custom {
   width: 20px;
   padding: 6px 6px 5px 0px;
+}
+
+.custom-icon-style-only-flag {
+  width: 20px;
+  padding: 6px 0px 5px 0px;
 }
 
 .ip-info-box {
