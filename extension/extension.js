@@ -3,6 +3,7 @@
 // Imports
 const CLUTTER = imports.gi.Clutter
 const G_LIB = imports.gi.GLib
+const G_OBJECT = imports.gi.GObject
 const GIO = imports.gi.Gio
 const EXTENSION_UTILS = imports.misc.extensionUtils
 const MAIN = imports.ui.main
@@ -237,9 +238,9 @@ const _makeRequest = () => {
   service.process(requestCallback)
 }
 
-class IpInfoIndicator extends PANEL_MENU.Button {
-  constructor() {
-    super(0.0, 'Ip Info Indicator', false)
+class ConnectionStalkerClass extends PANEL_MENU.Button {
+  _init(menuAlignment, nameText, dontCreateMenu) {
+    super._init(0.0, 'Ip Info Indicator', false)
     let hbox = new ST.BoxLayout({ style_class: 'ip-data-panel' })
 
     _icon = new ST.Icon({
@@ -338,6 +339,8 @@ class IpInfoIndicator extends PANEL_MENU.Button {
   }
 }
 
+const ConnectionStalker = G_OBJECT.registerClass(ConnectionStalkerClass)
+
 const removeItemFromIpInfoRows = (key) => {
   if (_ipInfoRows.hasOwnProperty(key)) {
     _ipInfoBox.remove_child(_ipInfoRows[key])
@@ -384,6 +387,6 @@ let _indicator
 
 const init = () => {}
 
-const enable = () => _indicator = new IpInfoIndicator
+const enable = () => _indicator = new ConnectionStalker
 
 const disable = () => _indicator.destroy()

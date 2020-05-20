@@ -1,4 +1,4 @@
-const { Gtk, Gio, GLib } = imports.gi
+const { Gtk, Gio, GLib, GObject } = imports.gi
 const ExtensionUtils = imports.misc.extensionUtils
 const Me = ExtensionUtils.getCurrentExtension()
 const Convenience = Me.imports.convenience
@@ -11,10 +11,9 @@ const DISPLAY_MODES = ['Only flag', 'Only IP', 'IP and flag', 'IP, flag and coun
 
 const init = () => {/* Empty */}
 
-class ConnectionStalkerPrefs extends Gtk.Grid {
-	
-	constructor() {
-		super()
+class ConnectionStalkerPrefsClass extends Gtk.Grid {
+	_init() {
+		super._init()
 		this.margin = 15
 		this.row_spacing = 3
 		this._settings = Convenience.getSettings()
@@ -67,8 +66,10 @@ class ConnectionStalkerPrefs extends Gtk.Grid {
 	}
 }
 
+const ConnectionStalkerPrefs = GObject.registerClass(ConnectionStalkerPrefsClass)
+
 const buildPrefsWidget = () => {
-	let widget = new ConnectionStalkerPrefs()
+	let widget = new ConnectionStalkerPrefs
 	widget.show_all()
 	return widget
 }
